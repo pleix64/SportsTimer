@@ -42,7 +42,7 @@ function reset() {
 
 function lap() {
     if(isRunning) {
-        const aLapTime = document.createElement("div");
+        const aLapTime = document.createElement("li");
         const lapSecDisplay = document.createElement("span");
         const whiteSpace = document.createTextNode(" ");
         const lapMsecDisplay = document.createElement("span");
