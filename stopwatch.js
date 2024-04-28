@@ -1,19 +1,21 @@
-let startStopBtn = document.getElementById('start_button');
-let resetBtn = document.getElementById('reset_button');
-let secDisply = document.getElementById('seconds');
-let msecDisplay = document.getElementById('milli_seconds');
+const startStopBtn = document.getElementById('start_button');
+const lapBtn = document.getElementById('lap_button');
+const resetBtn = document.getElementById('reset_button');
+
+const secDisplay = document.getElementById('seconds');
+const msecDisplay = document.getElementById('milli_seconds');
+const lapTimes = document.getElementById('lap_times');
 
 let isRunning = false;
 let msecInterval, secInterval;
 let startTime;
 let elapsedPausedTime = 0;
 
-console.log(document);
 startStopBtn.addEventListener('click', startStop);
 resetBtn.addEventListener('click', reset);
+lapBtn.addEventListener('click', lap);
 
 function startStop() {
-    console.log(isRunning);
     if(!isRunning) {
         isRunning = true;
         startTime = new Date().getTime() - elapsedPausedTime;
@@ -32,9 +34,25 @@ function reset() {
     clearInterval(msecInterval);
     clearInterval(secInterval);
     msecDisplay.innerText = '000';
-    secDisply.innerText = '00';
+    secDisplay.innerText = '00';
+    lapTimes.innerText = '';
     elapsedPausedTime = 0;
     isRunning = false;
+}
+
+function lap() {
+    if(isRunning) {
+        const aLapTime = document.createElement("div");
+        const lapSecDisplay = document.createElement("span");
+        const whiteSpace = document.createTextNode(" ");
+        const lapMsecDisplay = document.createElement("span");
+        lapSecDisplay.innerText = secDisplay.innerText;
+        lapMsecDisplay.innerText = msecDisplay.innerText;
+        aLapTime.appendChild(lapSecDisplay);
+        aLapTime.appendChild(whiteSpace);
+        aLapTime.appendChild(lapMsecDisplay);
+        lapTimes.appendChild(aLapTime);
+    }
 }
 
 function updateMsecDisplay() {
@@ -44,5 +62,5 @@ function updateMsecDisplay() {
 
 function updateSecDisplay() {
     let sec = Math.round((new Date().getTime() - startTime) / 1000);
-    secDisply.innerText = sec.toString().padStart(2, '0');
+    secDisplay.innerText = sec.toString().padStart(2, '0');
 }
