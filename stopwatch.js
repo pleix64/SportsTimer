@@ -15,6 +15,8 @@ startStopBtn.addEventListener('click', startStop);
 resetBtn.addEventListener('click', reset);
 lapBtn.addEventListener('click', lap);
 
+document.addEventListener('keydown', keyHandler);
+
 function startStop() {
     if(!isRunning) {
         isRunning = true;
@@ -63,4 +65,10 @@ function updateMsecDisplay() {
 function updateSecDisplay() {
     let sec = Math.round((new Date().getTime() - startTime) / 1000);
     secDisplay.innerText = sec.toString().padStart(2, '0');
+}
+
+function keyHandler(event) {
+    if(event.key == ' ') startStop();
+    if(event.key == 'l') lap();
+    if(event.key == 'r') reset();
 }
