@@ -68,7 +68,7 @@ function updateSecDisplay() {
 }
 
 function keyHandler(event) {
-    if(event.key == ' ') startStop();
-    if(event.key == 'l') lap();
-    if(event.key == 'r') reset();
+    if(event.keyCode == 32) startStop();
+    if(event.keyCode == 76) lap();
+    if(event.keyCode == 82) reset();
 }
