@@ -98,7 +98,6 @@ function updateSecDisplay() {
 }
 
 function appendLap(aLap) {
-    console.log('a lap record is displayed.');
     const aLapTime = document.createElement("li");
     const lapSecDisplay = document.createElement("span");
     const whiteSpace = document.createTextNode(" ");
