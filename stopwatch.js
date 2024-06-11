@@ -11,28 +11,12 @@ let msecInterval, secInterval;
 let startTime;
 let elapsedPausedTime = 0;
 
+restoreData();
+
 startStopBtn.addEventListener('click', startStop);
 resetBtn.addEventListener('click', reset);
 lapBtn.addEventListener('click', lap);
-
 document.addEventListener('keydown', keyHandler);
-
-if(localStorage.length != 0) {
-    isRunning = JSON.parse(localStorage.getItem('isRunning'));
-    startTime = Number(localStorage.getItem('startTime'));
-    elapsedPausedTime = Number(localStorage.getItem('elapsedPausedTime'));
-    msecDisplay.innerText = localStorage.getItem('milliSeconds');
-    secDisplay.innerText = localStorage.getItem('seconds');
-    if(isRunning) {
-        msecInterval = setInterval(updateMsecDisplay, 1);
-        secInterval = setInterval(updateSecDisplay, 1000);
-    }
-    const lapsData = localStorage.getItem('laps');
-    if(lapsData !== null) {
-        const laps = JSON.parse(lapsData);
-        laps.forEach(appendLap);
-    }
-}
 
 function startStop() {
     if(!isRunning) {
@@ -118,4 +102,23 @@ function keyHandler(event) {
     if(event.keyCode == 32) startStop();
     if(event.keyCode == 76) lap();
     if(event.keyCode == 82) reset();
+}
+
+function restoreData() {
+    if(localStorage.length != 0) {
+        isRunning = JSON.parse(localStorage.getItem('isRunning'));
+        startTime = Number(localStorage.getItem('startTime'));
+        elapsedPausedTime = Number(localStorage.getItem('elapsedPausedTime'));
+        msecDisplay.innerText = localStorage.getItem('milliSeconds');
+        secDisplay.innerText = localStorage.getItem('seconds');
+        if(isRunning) {
+            msecInterval = setInterval(updateMsecDisplay, 1);
+            secInterval = setInterval(updateSecDisplay, 1000);
+        }
+        const lapsData = localStorage.getItem('laps');
+        if(lapsData !== null) {
+            const laps = JSON.parse(lapsData);
+            laps.forEach(appendLap);
+        }
+    }
 }
